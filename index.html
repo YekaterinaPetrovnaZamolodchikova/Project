@@ -52,14 +52,24 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Train Fare Guide</a>
+            <a class="navbar-brand" href="#">
+                <img src="rail_transit_logo.png" alt="Rail Transit Logo" height="40">
+                Train Fare Guide
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="page2.html">Schedule</a></li>
-                    <li class="nav-item"><a class="nav-link" href="page3.html">Feedback</a></li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="page2.html">Transit Schedule</a></li>
+                    <li class="nav-item"><a class="nav-link" href="page3.html">Contact Us</a></li>
+                    <li class="nav-item">
+                        <form class="d-flex">
+                            <input class="form-control me-2" type="search" placeholder="Search">
+                            <button class="btn btn-light" type="submit">Search</button>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -73,26 +83,46 @@
             <div class="mb-3">
                 <label for="startStation" class="form-label">Start Station:</label>
                 <select id="startStation" class="form-select">
-                    <option value="13">North Avenue</option>
-                    <option value="15">Quezon Avenue</option>
-                    <option value="17">GMA Kamuning</option>
-                    <option value="20">Araneta Center-Cubao</option>
-                    <option value="23">Santolan-Annapolis</option>
-                    <option value="25">Ortigas</option>
-                    <option value="28">Shaw Boulevard</option>
-                    <option value="30">Boni</option>
-                    <option value="32">Guadalupe</option>
-                    <option value="35">Buendia</option>
-                    <option value="37">Ayala</option>
-                    <option value="40">Magallanes</option>
-                    <option value="42">Taft Avenue</option>
+                    <option value="none">Select</option>
+                    <option value="13">North Avenue - ₱13</option>
+                    <option value="15">Quezon Avenue - ₱15</option>
+                    <option value="17">GMA Kamuning - ₱17</option>
+                    <option value="20">Araneta Center-Cubao - ₱20</option>
+                    <option value="23">Santolan-Annapolis - ₱23</option>
+                    <option value="25">Ortigas - ₱25</option>
+                    <option value="28">Shaw Boulevard - ₱28</option>
+                    <option value="30">Boni - ₱30</option>
+                    <option value="32">Guadalupe - ₱32</option>
+                    <option value="35">Buendia - ₱35</option>
+                    <option value="37">Ayala - ₱37</option>
+                    <option value="40">Magallanes - ₱40</option>
+                    <option value="42">Taft Avenue - ₱42</option>
                 </select>
             </div>
             <div class="mb-3">
-                <label for="fareType" class="form-label">Fare Type:</label>
-                <select id="fareType" class="form-select">
-                    <option value="1">Regular</option>
-                    <option value="0.8">Discounted (Senior/PWD/Student)</option>
+                <label for="endStation" class="form-label">End Station:</label>
+                <select id="endStation" class="form-select">
+                    <option value="none">Select</option>
+                    <option value="13">North Avenue - ₱13</option>
+                    <option value="15">Quezon Avenue - ₱15</option>
+                    <option value="17">GMA Kamuning - ₱17</option>
+                    <option value="20">Araneta Center-Cubao - ₱20</option>
+                    <option value="23">Santolan-Annapolis - ₱23</option>
+                    <option value="25">Ortigas - ₱25</option>
+                    <option value="28">Shaw Boulevard - ₱28</option>
+                    <option value="30">Boni - ₱30</option>
+                    <option value="32">Guadalupe - ₱32</option>
+                    <option value="35">Buendia - ₱35</option>
+                    <option value="37">Ayala - ₱37</option>
+                    <option value="40">Magallanes - ₱40</option>
+                    <option value="42">Taft Avenue - ₱42</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="discount" class="form-label">Discount Type:</label>
+                <select class="form-select" id="discount">
+                    <option value="0">Regular</option>
+                    <option value="0.2">PWD/Senior Citizen/Student - 20% Discount</option>
                 </select>
             </div>
             <button type="button" onclick="calculateFare()">Calculate Fare</button>
@@ -115,13 +145,20 @@
 
     <script>
         function calculateFare() {
-            var baseFare = document.getElementById('startStation').value;
-            var discount = document.getElementById('fareType').value;
-            var finalFare = baseFare * discount;
-            document.getElementById('fareResult').innerText = "Your fare is ₱" + finalFare.toFixed(2);
+            var start = document.getElementById('startStation').value;
+            var end = document.getElementById('endStation').value;
+            var discount = document.getElementById('discount').value;
+
+            if (start === "none" || end === "none") {
+                alert("Please select both a start and an end station.");
+                return;
+            }
+
+            var fare = Math.abs(end - start);
+            var discountedFare = fare - (fare * discount);
+
+            document.getElementById("fareResult").innerText = "Your fare is ₱" + discountedFare.toFixed(2);
         }
     </script>
-<br> 
-    <p>&copy; 2025 Galura, Magpantay, Dida-agun</p>
 </body>
 </html>
